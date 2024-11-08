@@ -30,7 +30,7 @@
                 <!-- Loop para listar cada cliente na tabela -->
                 <tr th:each="client : ${list}">
                     <td th:text="${client.id_cliente}"></td>
-                    <td th:text="${client.nome}"></td>
+                    <td th:text="${client.name}"></td>
                     <td th:text="${client.email}"></td>
                     <td>
                         <a th:href="@{/client/edit(id=${client.id_cliente})}" class="btn btn-warning">
