@@ -13,6 +13,6 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_cliente;
 
-    private String nome;
+    private String name;
     private String email;
 }
