@@ -42,6 +42,13 @@
                                 <input type="number" th:field="*{amount}" name="amount" id="amount" class="form-control" placeholder="Digite a quantidade" required />
                             </div>
                         </div>
+
+
+                        <select class="form-select" aria-label="Category" name="category">
+                            <option selected>Categorias</option>
+
+                        </select>
+
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Salvar <i class="fa fa-plus-square"></i></button>
                             <a th:href="@{/product/getAllProducts}" class="btn btn-link">Listar</a>

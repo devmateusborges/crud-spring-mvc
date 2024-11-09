@@ -28,7 +28,7 @@ public class ClientController {
     public String save(@ModelAttribute Client client,
                        Model model) {
         Client c = service.saveClient(client);
-        String message = "Client " + c.getName() + " saved!";  // Atualizado para mostrar o nome do cliente
+        String message = "Client " + c + " saved!";  // Atualizado para mostrar o nome do cliente
         model.addAttribute("message", message);
         return "registerClientPage";
     }
