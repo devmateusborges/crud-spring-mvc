@@ -5,9 +5,14 @@ import com.fafram.products_crud.model.Category;
 import java.util.List;
 
 public interface ICategoryService {
-    Category saveCategory(Category category);
-    List<Category> getAllCategories();
-    Category getCategoryById(Long id);
-    void updateCategory(Category category);
-    void deleteCategoryById(Long id);
+
+    public Category saveCategory(Category category);
+
+    public List<Category> getAllCategories();
+
+    public Category getCategoryById(Long id);
+
+    public void updateCategory(Category category);
+
+    public void deleteCategoryById(Long id);
 }
