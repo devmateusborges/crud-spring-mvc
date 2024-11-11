@@ -1,7 +1,7 @@
 package com.fafram.products_crud.controller;
 
 import com.fafram.products_crud.model.Sales;
-import com.fafram.products_crud.service.ISalesService;
+import com.fafram.products_crud.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,17 +15,29 @@ import java.util.List;
 public class SalesController {
 
     @Autowired
-    private ISalesService service;
+    private ISalesService salesService;
+
+    @Autowired
+    private  ISalesProductService salesProductService;
+
+    @Autowired
+    private IProductService productService;
+
+    @Autowired
+    private IClientService clientService;
+
 
     @GetMapping("/register")
-    public String showRegistration() {
-        return "registerSalesPage";
+    public String showSalesProductRegistration(Model model) {
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("products", productService.getAllProducts());
+        return "registerSalesProductPage";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Sales sales,
                        Model model) {
-        Sales s = service.saveSales(sales);
+        Sales s = salesService.saveSales(sales);
         String message = "Sales record " + s + " saved!";
         model.addAttribute("message", message);
         return "registerSalesPage";
@@ -33,7 +45,7 @@ public class SalesController {
 
     @GetMapping("/getAllSales")
     public String getAllSales(Model model) {
-        List<Sales> sales = service.getAllSales();
+        List<Sales> sales = salesService.getAllSales();
         model.addAttribute("list", sales);
         return "listSalesPage";
     }
@@ -43,7 +55,7 @@ public class SalesController {
                        @RequestParam Long id,
                        RedirectAttributes redirectAttributes) {
 
-        Sales sales = service.getSalesById(id);
+        Sales sales = salesService.getSalesById(id);
         model.addAttribute("sales", sales);
         return "editSalesPage";
     }
@@ -51,14 +63,14 @@ public class SalesController {
     @PostMapping("/update")
     public String update(@ModelAttribute Sales sales,
                          RedirectAttributes redirectAttributes) {
-        service.updateSales(sales);
+        salesService.updateSales(sales);
         return "redirect:getAllSales";
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam Long id,
                          RedirectAttributes redirectAttributes) {
-        service.deleteSalesById(id);
+        salesService.deleteSalesById(id);
         return "redirect:getAllSales";
     }
 }
