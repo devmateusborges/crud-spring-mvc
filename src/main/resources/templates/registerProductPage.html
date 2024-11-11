@@ -48,9 +48,8 @@
               <label for="category" class="form-label">Categoria</label>
               <select name="category" id="category" class="form-select" required>
                 <option value="" selected disabled>Selecione</option>
-                <option th:each="category : ${list}"
-                        th:value="${category.id_categoria}"
-                        th:text="${category.descricao}"></option>
+                <option th:each="categories : ${categories}" th:value="${categories.id_categoria}"
+                        th:text="${categories.descricao}">Selecione uma categoria</option>
               </select>
             </div>
 
