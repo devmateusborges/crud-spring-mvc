@@ -31,7 +31,7 @@ public class SalesController {
     public String showSalesProductRegistration(Model model) {
         model.addAttribute("clients", clientService.getAllClients());
         model.addAttribute("products", productService.getAllProducts());
-        return "registerSalesProductPage";
+        return "registerSalesPage";
     }
 
     @PostMapping("/save")
