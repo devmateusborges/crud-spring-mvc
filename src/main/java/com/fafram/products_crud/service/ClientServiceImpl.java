@@ -3,6 +3,7 @@ package com.fafram.products_crud.service;
 import com.fafram.products_crud.model.Client;
 import com.fafram.products_crud.repository.ClientRepository;
 import com.fafram.products_crud.utils.ClientNotFoundException;
+import com.fafram.products_crud.utils.DuplicateEmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,10 @@ public class  ClientServiceImpl implements IClientService {
     @Autowired
     private ClientRepository repository;
 
-    @Override
     public Client saveClient(Client client) {
+        if (repository.existsByEmail(client.getEmail())) {
+            throw new DuplicateEmailException("E-mail já cadastrado.");
+        }
         return repository.save(client);
     }
 

@@ -5,3 +5,5 @@ public class ClientNotFoundException extends RuntimeException {
         super(message);
     }
 }
+
+
