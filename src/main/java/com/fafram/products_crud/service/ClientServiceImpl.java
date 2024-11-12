@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class  ClientServiceImpl implements IClientService {
+public class ClientServiceImpl implements IClientService {
 
     @Autowired
     private ClientRepository repository;
 
+    // Verifica email duplicado
     public Client saveClient(Client client) {
         if (repository.existsByEmail(client.getEmail())) {
             throw new DuplicateEmailException("E-mail já cadastrado.");
@@ -38,8 +39,12 @@ public class  ClientServiceImpl implements IClientService {
         }
     }
 
+    // Verifica email duplicado
     @Override
     public void updateClient(Client client) {
+        if (repository.existsByEmail(client.getEmail())) {
+            throw new DuplicateEmailException("E-mail já cadastrado.");
+        }
         repository.save(client);
     }
 

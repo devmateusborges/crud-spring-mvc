@@ -26,14 +26,17 @@ public class ClientController {
 
     // Salva os dados do cliente
     @PostMapping("/save")
-    public String save(@ModelAttribute Client client, Model model, RedirectAttributes redirectAttributes) {
+    public String save(@ModelAttribute Client client,
+                       Model model) {
         try {
             Client c = service.saveClient(client);
-            redirectAttributes.addFlashAttribute("message", "Cliente " + c.getName() + " foi salvo com sucesso");
+            String message = "Cliente " + c.getName() + " foi salvo com sucesso!";
+            model.addAttribute("message", message);
+            return "registerClientPage";
         } catch (DuplicateEmailException e) {
-            redirectAttributes.addFlashAttribute("error", "Email já cadastrado no sistema!");
+            model.addAttribute("error", "Este e-mail já está cadastrado!");
+            return "registerClientPage";
         }
-        return "redirect:/client/register";
     }
 
     // Exibe a lista de todos os clientes
@@ -55,9 +58,16 @@ public class ClientController {
 
     // Atualiza as informações do cliente
     @PostMapping("/update")
-    public String update(@ModelAttribute Client client) {
-        service.updateClient(client);
-        return "redirect:/client/getAllClients";
+    public String update(@ModelAttribute Client client,
+                         Model model) {
+        try {
+            service.updateClient(client);
+            return "redirect:/client/getAllClients";
+        } catch (DuplicateEmailException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("client", client);
+            return "editClientPage";
+        }
     }
 
     // Deleta um cliente
