@@ -1,7 +1,7 @@
 package com.fafram.products_crud.utils;
 
-public class nsufficientStockException extends RuntimeException {
-    public nsufficientStockException(String message) {
+public class InsufficientStockException extends RuntimeException {
+    public InsufficientStockException(String message) {
         super(message);
     }
 }
