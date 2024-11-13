@@ -18,7 +18,7 @@ public class ClientServiceImpl implements IClientService {
 
     // Verifica email duplicado
     public Client saveClient(Client client) {
-        if (repository.existsByEmail(client.getEmail())) {
+        if (repository.existeEmail(client.getEmail())) {
             throw new DuplicateEmailException("E-mail já cadastrado.");
         }
         return repository.save(client);
@@ -35,14 +35,14 @@ public class ClientServiceImpl implements IClientService {
         if (client.isPresent()) {
             return client.get();
         } else {
-            throw new ClientNotFoundException("Client with Id: " + id + " Not Found!");
+            throw new ClientNotFoundException("Cliente com id: " + id + " não foi encontrado");
         }
     }
 
     // Verifica email duplicado
     @Override
     public void updateClient(Client client) {
-        if (repository.existsByEmail(client.getEmail())) {
+        if (repository.existeEmail(client.getEmail())) {
             throw new DuplicateEmailException("E-mail já cadastrado.");
         }
         repository.save(client);

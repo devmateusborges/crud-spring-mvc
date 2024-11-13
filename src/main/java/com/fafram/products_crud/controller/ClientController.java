@@ -18,7 +18,6 @@ public class ClientController {
     @Autowired
     private IClientService service;
 
-    // Exibe a página de cadastro de cliente
     @GetMapping("/register")
     public String showRegistration() {
         return "registerClientPage";
@@ -39,7 +38,6 @@ public class ClientController {
         }
     }
 
-    // Exibe a lista de todos os clientes
     @GetMapping("/getAllClients")
     public String getAllClients(Model model) {
         List<Client> clients = service.getAllClients();
@@ -47,7 +45,6 @@ public class ClientController {
         return "listClientsPage";
     }
 
-    // Exibe a página de edição do cliente
     @GetMapping("/edit")
     public String edit(Model model,
                        @RequestParam Long id) {
@@ -56,7 +53,6 @@ public class ClientController {
         return "editClientPage";
     }
 
-    // Atualiza as informações do cliente
     @PostMapping("/update")
     public String update(@ModelAttribute Client client,
                          Model model) {
@@ -70,7 +66,6 @@ public class ClientController {
         }
     }
 
-    // Deleta um cliente
     @GetMapping("/delete")
     public String delete(@RequestParam Long id) {
         service.deleteClientById(id);
