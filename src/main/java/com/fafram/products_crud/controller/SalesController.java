@@ -38,7 +38,7 @@ public class SalesController {
     public String save(@ModelAttribute Sales sales,
                        Model model) {
         Sales s = salesService.saveSales(sales);
-        String message = "Sales record " + s + " saved!";
+        String message = "Venda " + s + " salva!";
         model.addAttribute("message", message);
         return "registerSalesPage";
     }
