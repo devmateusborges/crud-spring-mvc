@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://bootswatch.com/_vendor/bootstrap/dist/css/bootstrap.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <title>Atualização de Produto</title>
+    <title>Atualização de Cliente</title>
 </head>
 <body>
 <!-- Incluindo o fragmento do menu -->
@@ -25,29 +25,31 @@
                         <div class="row mb-3">
                             <div class="col-md-2">
                                 <label for="id" class="form-label">ID</label>
-                                <input type="text" th:field="*{id}" name="id" id="id" class="form-control" readonly />
+                                <input type="text" th:field="*{id_produto}" name="id" id="id" class="form-control" readonly />
                             </div>
                             <div class="col-md-8">
                                 <label for="name" class="form-label">Nome</label>
-                                <input type="text" th:field="*{name}" name="name" id="name" class="form-control" placeholder="Digite o nome" required />
+                                <input type="text" th:field="*{descricao}" name="name" id="name" class="form-control" placeholder="Digite o nome" required />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="price" class="form-label">Preço</label>
-                                <input type="number" th:field="*{price}" name="price" id="price" class="form-control" placeholder="Digite o preço" step="any" required />
+                                <input type="number" th:field="*{preco}" name="price" id="price" class="form-control" placeholder="Digite o preço" step="any" required />
                             </div>
                             <div class="col-md-6">
                                 <label for="amount" class="form-label">Quantidade</label>
-                                <input type="number" th:field="*{amount}" name="amount" id="amount" class="form-control" placeholder="Digite a quantidade" required />
+                                <input type="number" th:field="*{quantidade_estoque}" name="amount" id="amount" class="form-control" placeholder="Digite a quantidade" required />
                             </div>
                         </div>
 
-
-                        <select class="form-select" aria-label="Category" name="category">
-                            <option selected>Categorias</option>
-
-                        </select>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Categoria</label>
+                            <select class="form-select" aria-label="Categoria" th:field="*{category.id_categoria}" name="category" id="category" required>
+                                <option value="" disabled selected>Categorias</option>
+                                <option th:each="cat : ${categories}" th:value="${cat.id_categoria}" th:text="${cat.descricao}"></option>
+                            </select>
+                        </div>
 
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Salvar <i class="fa fa-plus-square"></i></button>

@@ -19,10 +19,13 @@
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
                            role="button" aria-haspopup="true" aria-expanded="false">menu</a>
                         <div class="dropdown-menu">
+                            <a class="dropdown-item" th:href="@{/sales/register}">Resgistrar Venda</a>
                             <a class="dropdown-item" th:href="@{/product/register}">Cadastro de Produto</a>
                             <a class="dropdown-item" th:href="@{/client/register}">Cadastro de Cliente</a>
+                            <a class="dropdown-item" th:href="@{/category/register}">Cadastro de Categoria</a>
                             <a class="dropdown-item" th:href="@{/product/getAllProducts}">Produtos</a>
                             <a class="dropdown-item" th:href="@{/client/getAllClients}">Clientes</a>
+                            <a class="dropdown-item" th:href="@{/category/getAllCategories}">Categorias</a>
                         </div>
                     </li>
                 </ul>

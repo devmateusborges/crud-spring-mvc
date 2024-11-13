@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/" lang="en">
+<html xmlns:th="https://www.thymeleaf.org/" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,19 +24,24 @@
                     <th>Nome</th>
                     <th>Preço</th>
                     <th>Quantidade</th>
-                    <th>#</th>
+                    <th>Categoria</th> <!-- Nova coluna para Categoria -->
+                    <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="product:${list}">
-                    <td th:text=${product.id}></td>
-                    <td th:text=${product.name}></td>
-                    <td th:text=${product.price}></td>
-                    <td th:text=${product.amount}></td>
-                    <td><a th:href="@{/product/edit(id=${product.id})}" class="btn btn-warning">
-                        Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                        <a th:href="@{/product/delete(id=${product.id})}" class= "btn btn-danger">
-                        Apagar <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                <tr th:each="product : ${list}">
+                    <td th:text="${product.id_produto}"></td>
+                    <td th:text="${product.descricao}"></td>
+                    <td th:text="${product.preco}"></td>
+                    <td th:text="${product.quantidade_estoque}"></td>
+                    <td th:text="${product.category.descricao}"></td> <!-- Exibindo a descrição da categoria -->
+                    <td>
+                        <a th:href="@{/product/edit(id=${product.id_produto})}" class="btn btn-warning">
+                            Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                        <a th:href="@{/product/delete(id=${product.id_produto})}" class="btn btn-danger">
+                            Apagar <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
                     </td>
                 </tr>
                 </tbody>

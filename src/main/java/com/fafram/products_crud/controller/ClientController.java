@@ -2,6 +2,7 @@ package com.fafram.products_crud.controller;
 
 import com.fafram.products_crud.model.Client;
 import com.fafram.products_crud.service.IClientService;
+import com.fafram.products_crud.utils.DuplicateEmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +28,15 @@ public class ClientController {
     @PostMapping("/save")
     public String save(@ModelAttribute Client client,
                        Model model) {
-        Client c = service.saveClient(client);
-        String message = "Client " + c + " saved!";  // Atualizado para mostrar o nome do cliente
-        model.addAttribute("message", message);
-        return "registerClientPage";
+        try {
+            Client c = service.saveClient(client);
+            String message = "Cliente " + c.getName() + " foi salvo com sucesso!";
+            model.addAttribute("message", message);
+            return "registerClientPage";
+        } catch (DuplicateEmailException e) {
+            model.addAttribute("error", "Este e-mail já está cadastrado!");
+            return "registerClientPage";
+        }
     }
 
     // Exibe a lista de todos os clientes
@@ -44,8 +50,7 @@ public class ClientController {
     // Exibe a página de edição do cliente
     @GetMapping("/edit")
     public String edit(Model model,
-                       @RequestParam Long id,
-                       RedirectAttributes redirectAttributes) {
+                       @RequestParam Long id) {
         Client client = service.getClientById(id);
         model.addAttribute("client", client);
         return "editClientPage";
@@ -54,16 +59,21 @@ public class ClientController {
     // Atualiza as informações do cliente
     @PostMapping("/update")
     public String update(@ModelAttribute Client client,
-                         RedirectAttributes redirectAttributes) {
-        service.updateClient(client);
-        return "redirect:/client/getAllClients";  // Corrigido para redirecionar corretamente
+                         Model model) {
+        try {
+            service.updateClient(client);
+            return "redirect:/client/getAllClients";
+        } catch (DuplicateEmailException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("client", client);
+            return "editClientPage";
+        }
     }
 
     // Deleta um cliente
     @GetMapping("/delete")
-    public String delete(@RequestParam Long id,
-                         RedirectAttributes redirectAttributes) {
+    public String delete(@RequestParam Long id) {
         service.deleteClientById(id);
-        return "redirect:/client/getAllClients";  // Corrigido para redirecionar corretamente
+        return "redirect:/client/getAllClients";
     }
 }
